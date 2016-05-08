@@ -1,40 +1,31 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>{% block head_title %}{% endblock %}</title>
-    {% block extra_head %}
-    {% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>{% block title %}{% endblock %}APZ PO</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+      {% include 'extra_head_info.html' %}
+      {% include 'javascript.html' %}
+
+      {% block style %}
+      {% endblock %}
+
   </head>
+
   <body>
-    {% block body %}
+      <div class="nav" style ="margin-bottom:50px;">
+        {% include 'navbar/navbar.html' %}
+      </div>
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-	{% for message in messages %}
-	<li>{{message}}</li>
-	{% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-	{% if user.is_authenticated %}
-	<li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-	<li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-	{% else %}
-	<li><a href="{% url 'account_login' %}">Sign In</a></li>
-	<li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-	{% endif %}
-      </ul>
-    </div>
-    {% block content %}
-    {% endblock %}
-    {% endblock %}
-    {% block extra_body %}
-    {% endblock %}
+        <!-- <div class="container"> -->
+          {% block content %}
+          {% endblock %}
+        <!-- /container -->
   </body>
 </html>

@@ -1,10 +1,179 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    dashboard
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="{% static "css/dashboard/bootstrap.min.css"%}" rel="stylesheet">
+    <link href="{% static "css/dashboard/ie10-viewport-bug-workaround.css"%}" rel="stylesheet">
+    <link href="{% static "css/dashboard/navbar.css"%}" rel="stylesheet">
+    <link href="{% static "css/dashboard/sidebar.css"%}" rel="stylesheet">
+    <link href="{% static "css/custom.css"%}" rel="stylesheet">
+    <script src="{% static "css/dashboard/ie-emulation-modes-warning.js"%}"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/Street.js" %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+      <title>{% block title %}{% endblock %}APZ PO</title>
+
+  </head>
+
+  <body>
+
+      <div class="nav navbarcustom" style ="margin-bottom:41px;">
+        {% include 'navbar/navbar.html' %}
+      </div>
+    
+        <nav class="navbar navbar-inverse sidebar sidecustom" role="navigation">
+        <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">Menu</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+{#                <li><a href="{% url 'dashboard' %}">Panel konta <span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-home"></span></a></li>#}
+                <li><a href="/profile/{{request.user.username}}">Widok mojego konta <span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-user"></span> </a></li>
+
+                <li><a href="">Utwórz wydarzenie <span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-plus"></span></a></li>
+
+                <li><a href="">Znajdź wydarzenie <span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-search"></span> </a></li>
+
+                <li><a href="">Twoje wydarzenia <span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-eye"></span> </a></li>
+
+                <li><a href="">Edycja konta <span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-pencil-square-o"></span> </a></li>
+
+                <li><a href="">Powiadomienia<span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-comments"></span> </a></li>
+
+                <li><a href="">Zmiana hasła <span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-exchange"></span> </a></li>
+
+                <li><a href="">Usuń konto<span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-user-times"></span> </a></li>
+
+                <li><a href="">Wyloguj<span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon fa fa-power-off"></span> </a></li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+<div class="main">
+
+{#          <div class="col-sm-9">#}
+{#            #}
+{#          <div class="col-md-6">#}
+{#            <h3 class="page-header">#}
+{#                Dzisiejsze organizowane wydarzenia:#}
+{#            </h3>#}
+{#            {% for event in my_organised_event %}#}
+{#                {% if event.is_past_due %}#}
+{#                    <div class="inactive_your event inactive">#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-12 col-xs-12  title">{{ event.title }}</div>#}
+{##}
+{#                            <div class="col-md-8 col-xs-6">{{ event.date_event|date:"j-n-Y" }}</div>#}
+{#                            <div class="col-md-4 col-xs-6">{{ event.time_event|time:"H:i" }}</div>#}
+{##}
+{#                            <div class="col-md-12 col-xs-12" id="street_env{{event.pk}}org"></div>#}
+{#                            <div id="latlong{{event.pk}}{{event.is_past_due}}" style="display:none;">{{event.latlong}}</div>#}
+{#                            #}
+{#                            <script type="text/javascript">#}
+{#                                var latlong = document.getElementById("latlong{{event.pk}}{{event.is_past_due}}").innerHTML;#}
+{#                                geocodeLatLng(latlong,"street_env{{event.pk}}org");#}
+{#                            </script>#}
+{#                            #}
+{#                            <div class="col-md-8 col-xs-6"><a href='{{event.get_absolute_url}}'>Podgląd</a></div>#}
+{#                            <div class="col-md-4 col-xs-6"><span style="color:red;">Zakonczone</span></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% else %}#}
+{#                    <div class="active_your event active your">#}
+{#                        <div class="row">#}
+{##}
+{#                            <div class="col-md-12 col-xs-12  title">{{ event.title }}</div>#}
+{#                            <div class="col-md-8 col-xs-6">{{ event.date_event|date:"j-n-Y" }}</div>#}
+{#                            <div class="col-md-4 col-xs-6">{{ event.time_event|time:"H:i" }}</div>#}
+{#                            <div class="col-md-12 col-xs-12" id="street_env{{event.pk}}org"></div>#}
+{#                            <div id="latlong{{event.pk}}{{event.is_past_due}}" style="display:none;">{{event.latlong}}</div>#}
+{#                            <script type="text/javascript">#}
+{#                                var latlong = document.getElementById("latlong{{event.pk}}{{event.is_past_due}}").innerHTML;#}
+{#                                geocodeLatLng(latlong,"street_env{{event.pk}}org");#}
+{#                            </script>#}
+{#                            <div class="col-md-8 col-xs-6"><a href='{{event.get_absolute_url}}'>Podgląd</a></div>#}
+{#                            <div class="col-md-4 col-xs-6"><a href='/event/edit/{{event.pk}}'> Edycja</a></div>#}
+{##}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{#        #}
+{#        </div>#}
+{##}
+{#        <div class="col-md-6">#}
+{#            <h3 class="page-header">#}
+{#                Dzisiejsze wydarzenia, w których bierzesz udział:#}
+{#            </h3>#}
+{#            {% for event in my_event %}#}
+{#                {% if event.is_past_due %}#}
+{#                    <div class="inactive_all event inactive all">#}
+{#                        <div class="row">#}
+{#                           <div class="col-md-12 col-xs-12  title">{{ event.title }}</div>#}
+{##}
+{#                            <div class="col-md-8 col-xs-6">{{ event.date_event|date:"j-n-Y" }}</div>#}
+{#                            <div class="col-md-4 col-xs-6">{{ event.time_event|time:"H:i" }}</div>#}
+{##}
+{#                            <div class="col-md-12 col-xs-12" id="street_env{{event.pk}}play"></div>#}
+{#                            <div id="latlong{{event.pk}}{{event.is_past_due}}" style="display:none;">{{event.latlong}}</div>#}
+{#                            #}
+{#                            <script type="text/javascript">#}
+{#                                var latlong = document.getElementById("latlong{{event.pk}}{{event.is_past_due}}").innerHTML;#}
+{#                                geocodeLatLng(latlong,"street_env{{event.pk}}play");#}
+{#                            </script>#}
+{#                       #}
+{#                            <div class="col-md-8 col-xs-6"><a href='{{event.get_absolute_url}}'>Podgląd</a></div>#}
+{#                            <div class="col-md-4 col-xs-6"><span style="color:red;">Zakonczone</span></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% else %}#}
+{#                    <div class="active_all event active all">#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-12 col-xs-12  title">{{ event.title }}</div>#}
+{#                            <div class="col-md-8 col-xs-6">{{ event.date_event|date:"j-n-Y" }}</div>#}
+{#                            <div class="col-md-4 col-xs-6">{{ event.time_event|time:"H:i" }}</div>#}
+{#                            <div class="col-md-12 col-xs-12" id="street_env{{event.pk}}play"></div>#}
+{#                            <div id="latlong{{event.pk}}{{event.is_past_due}}" style="display:none;">{{event.latlong}}</div>#}
+{#                            <script type="text/javascript">#}
+{#                                var latlong = document.getElementById("latlong{{event.pk}}{{event.is_past_due}}").innerHTML;#}
+{#                                geocodeLatLng(latlong,"street_env{{event.pk}}play");#}
+{#                            </script>#}
+{#                            <div class="col-md-8 col-xs-6"><a href='{{event.get_absolute_url}}'>Podgląd</a></div>#}
+{#                            <div class="col-md-4 col-xs-6"><span style="color:green;">Aktywne</span></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                {% endif %}#}
+{##}
+{##}
+{#            {% endfor %}#}
+{#            <div id="all_tab"></div>#}
+{#        </div>#}
+{#              <div class="col-md-12 col-xs-12 textInfo" >#}
+{#                 <p>{%if  not my_organised_event and not my_event  %}Brak wydarzeń na dziś.<br/>{% endif %} Jeśli chesz zobaczyć wszytkie Twoje wydarzenia, wybierz zakładkę <a href="">Twoje wydarzenia. </a></p>#}
+{#             </div> #}
+{#      </div>#}
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{% static "css/dashboard/bootstrap.min.js" %}"></script>
+    <script src="{% static "css/dashboard/ie10-viewport-bug-workaround.js" %}"></script>
+  </body>
 </html>
