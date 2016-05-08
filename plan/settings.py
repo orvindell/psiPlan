@@ -79,13 +79,22 @@ WSGI_APPLICATION = 'plan.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mydb',
-        'USER': 'djangouser',
-        'PASSWORD': 'password',
+        'NAME': 'psi',
+        'USER': 'root',
+        'PASSWORD': 'kokiloki',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
+
+#
+# PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(PROJECT_DIR, 'yourdatabasename.db'),
+#     }
+# }
 
 
 # Password validation
