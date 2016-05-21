@@ -22,4 +22,11 @@ urlpatterns = [
     url(r'^$', 'plan.views.home', name='welcome'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
+
+
+    url(r'^addDepartment/$', 'plan.views.addDepartment', name='addDepartment'),
+    url(r'^addGroup/$', 'plan.views.addGroup', name='addGroup'),
+    url(r'^addWorker/$', 'plan.views.addWorker', name='addWorker'),
+    url(r'^addRoom/$', 'plan.views.addRoom', name='addRoom'),
+
 ]

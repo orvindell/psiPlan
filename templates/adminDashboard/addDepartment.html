@@ -1,0 +1,50 @@
+{% extends "adminDashboard/dashboard.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+<table class = "table table-bordered col-md-12">
+   <caption>Wydziały Politechniki Opolskiej</caption>
+
+   <thead>
+      <tr>
+         <th>#</th>
+         <th>Nazwa</th>
+         <th style="text-align: center">Usuń</th>
+      </tr>
+   </thead>
+
+   <tbody>
+    {% for p,q in results %}
+      <tr>
+         <td>{{forloop.counter}}</td>
+         <td>{{q}}</td>
+         <td class="{{p}}" style="text-align: center">
+             <form action="/addDepartment/" method="GET">
+                 <input type="hidden" name="{{p}}">
+                 <button type="submit" class="fa fa-trash fa-lg" aria-hidden="true"></button>
+            </form>
+         </td>
+
+      </tr>
+   {% endfor %}
+   </tbody>
+
+</table>
+
+
+
+    <form class="form col-md-12" action="/addDepartment/" method="POST">
+        {% csrf_token %}
+      <div class="form-group ">
+        <label for="Department">Nazwa</label>
+        <input type="text" class="form-control"  name="Department" id="Department" placeholder="Podaj nazwę wydziału Politechniki Opolskiej">
+      </div>
+      <button type="submit" class="btn btn-default">Dodaj wydział Politechniki Opolskiej</button>
+    </form>
+
+
+{% endblock %}

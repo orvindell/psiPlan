@@ -1,0 +1,32 @@
+a = Room(idofroom=11,roomname="Ćwiczeniowa",roomnumber="BUD_Klb-6")
+a.save()
+a = Room(idofroom=12,roomname="Ćwiczeniowa",roomnumber="BUD_KS-102")
+a.save()
+a = Room(idofroom=13,roomname="Ćwiczeniowa",roomnumber="BUD_KS-103")
+a.save()
+a = Room(idofroom=14,roomname="Ćwiczeniowa",roomnumber="BUD_KS-104")
+a.save()
+a = Room(idofroom=15,roomname="Ćwiczeniowa",roomnumber="BUD_KS-105")
+a.save()
+
+
+
+
+BUD_KS-106
+BUD_KS-2
+
+BUD_KS-202
+BUD_KS-203
+BUD_KS-204
+BUD_KS-205
+BUD_KS-206
+BUD_KS-207
+BUD_KS-3
+BUD_KS-302
+BUD_KS-303
+BUD_KS-305
+BUD_KS-4
+BUD_KS-9b
+BUD_K-SG
+
+

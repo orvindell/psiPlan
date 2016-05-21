@@ -1,0 +1,96 @@
+{% extends "adminDashboard/dashboard.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+         <p>DODAJ WYKŁADOWCĘ:</p>
+            <form class="form" action="/addWorker/" method="post">
+                {% csrf_token %}
+              <div class="form-group col-md-4">
+                  <label for="Title">Tytuł naukowy</label>
+
+                  <select name="Title" name="Title" id="Title" class="form-control">
+                        <option value="Prof. dr hab. inż.">Prof. dr hab. inż.</option>
+                        <option value="dr hab. inż.">dr hab. inż.</option>
+                        <option value="dr hab. inż. arch.">dr hab. inż. arch.</option>
+                        <option value="dr inż.">dr inż.</option>
+                        <option value="dr">dr</option>
+                        <option value="mgr inż.">mgr inż.</option>
+                        <option value="mgr">mgr</option>
+                    </select>
+                <!--<label for="Name">Tytuł naukowy</label>-->
+                <!--<input type="text" class="form-control" id ="Name" name="Name" placeholder="Tytuł naukowy">-->
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="Name">Imię</label>
+                <input type="text" class="form-control" id="Name" name="Name" placeholder="Imię">
+              </div>
+
+                <div class="form-group col-md-4">
+                <label for="Surmane">Nazwisko</label>
+                <input type="text" class="form-control" name="Surname"  id="Surmane" placeholder="Nazwisko">
+              </div>
+
+                <div class="form-group col-md-12">
+                    <label for="department">Wydział</label>
+                    <select name="Department" id="Department" class="form-control">
+                      {%for i,j in results%}
+                        <option value="{{i}}">{{j}}</option>
+                        {%endfor%}
+                    </select>
+              </div>
+                    <div class="form-group col-md-12">
+
+                        <button type="submit" class="btn btn-default ">Dodaj</button>
+                    </div>
+            </form>
+
+
+
+        <table class = "table table-bordered col-md-12">
+           <caption>WYKŁADOWCY POLITECHNIKI OPOLSKIEJ</caption>
+
+           <thead>
+              <tr>
+                 <th>#</th>
+                 <th>Tytuł</th>
+                  <th>Imię</th>
+                  <th>Nazwisko</th>
+                  <th>Wydział</th>
+                  <th>Id</th>
+
+                 <th style="text-align: center">Usuń</th>
+              </tr>
+           </thead>
+
+           <tbody>
+
+            {%for a,b,c,d,e in teachers%}
+              <tr>
+                 <td>{{forloop.counter}}</td>
+                 <td>{{b}}</td>
+                  <td>{{c}}</td>
+                  <td>{{d}}</td>
+                  <td>{{e}}</td>
+                  <td>{{a}}</td>
+
+                 <td class="{{a}}" style="text-align: center">
+                     <form action="/addWorker/" method="GET">
+                         <input type="hidden" name="{{a}}">
+                         <button type="submit" class="fa fa-trash fa-lg" aria-hidden="true"></button>
+                    </form>
+                 </td>
+
+              </tr>
+           {% endfor %}
+           </tbody>
+
+        </table>
+
+{% endblock %}
+
+
+

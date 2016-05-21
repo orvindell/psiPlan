@@ -1,0 +1,62 @@
+{% extends "adminDashboard/dashboard.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+         <p>DODAJ SALĘ:</p>
+            <form class="form" action="/addRoom/" method="post">
+                {% csrf_token %}
+              <div class="form-group col-md-4">
+                  <label for="nameOfRoom">Rodzaj sali</label>
+
+                  <select name="nameOfRoom" id="nameOfRoom" class="form-control">
+                        <option value="Wykładowa">wykładowa</option>
+                        <option value="Ćwiczeniowa">ćwiczeniowa</option>
+                        <option value="Laboratoryjna">laboratoryjna</option>
+                    </select>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="Number">Nazwa</label>
+                <input type="text" class="form-control" id="Number" name="Number" placeholder="Numer">
+              </div>
+                    <div class="form-group col-md-12">
+
+                        <button type="submit" class="btn btn-default ">Dodaj</button>
+                    </div>
+            </form>
+
+<table class = "table table-bordered col-md-12">
+   <caption>Sale Politechniki Opolskiej</caption>
+
+   <thead>
+      <tr>
+         <th>#</th>
+         <th>Nazwa</th>
+         <th>Numer</th>
+         <th style="text-align: center">Usuń</th>
+      </tr>
+   </thead>
+
+   <tbody>
+    {% for p,q,r in results %}
+      <tr>
+         <td>{{forloop.counter}}</td>
+         <td>{{q}}</td>
+          <td>{{r}}</td>
+         <td class="{{p}}" style="text-align: center">
+             <form action="/addRoom/" method="GET">
+                 <input type="hidden" name="{{p}}">
+                 <button type="submit" class="fa fa-trash fa-lg" aria-hidden="true"></button>
+            </form>
+         </td>
+
+      </tr>
+   {% endfor %}
+   </tbody>
+
+</table>
+
+{% endblock %}
